@@ -1,0 +1,707 @@
+Epoch 0/99
+----------
+/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))
+/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/apmeter.py:118: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  rg = torch.range(1, self.scores.size(0)).float()
+/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/apmeter.py:145: UserWarning: indexing with dtype torch.uint8 is now deprecated, please use a dtype torch.bool instead. (Triggered internally at  /opt/conda/conda-bld/pytorch_1646755888698/work/aten/src/ATen/native/IndexingUtils.h:28.)
+  ap[k] = precision[truth.byte()].sum() / max(truth.sum(), 1)
+epoch 0 train-map: tensor(7.5056)
+epoch 0 Full-val-map: tensor(9.8586)
+epoch 0 sampled-val-map: tensor(11.5604)
+tensor([50.9098,  2.5880, 37.9895,  3.4434,  6.5476,  3.2654,  3.9556,  0.4912,
+        13.2052, 16.5788,  0.9485, 20.6877,  0.2571,  0.0000,  0.9774])
+epoch 0 Total_Time 31.503596544265747 Epoch_time 31.503594398498535
+epoch 0 Best Val Map Update tensor(9.8586)
+logit_saved at: ./save_logit_depth_flow/0.pkl
+Epoch 1/99
+----------
+epoch 1 train-map: tensor(8.0155)
+epoch 1 Full-val-map: tensor(9.4705)
+epoch 1 sampled-val-map: tensor(11.0133)
+tensor([48.8524,  2.5500, 37.8846,  5.6068,  5.9967,  3.0867,  2.6295,  0.6091,
+         9.5919, 15.0894,  1.2702, 20.2247,  0.2222,  0.0000,  0.5722])
+epoch 1 Total_Time 60.83905625343323 Epoch_time 29.325483083724976
+Epoch 2/99
+----------
+epoch 2 train-map: tensor(9.4996)
+epoch 2 Full-val-map: tensor(10.0707)
+epoch 2 sampled-val-map: tensor(11.2267)
+tensor([52.2917,  2.6306, 38.1534,  4.7727,  5.8551,  3.3270,  2.8847,  0.3995,
+         9.7355, 15.6817,  1.4864, 19.0297,  0.2538,  0.0000,  0.6712])
+epoch 2 Total_Time 89.08861875534058 Epoch_time 28.24800181388855
+epoch 2 Best Val Map Update tensor(10.0707)
+logit_saved at: ./save_logit_depth_flow/2.pkl
+Epoch 3/99
+----------
+epoch 3 train-map: tensor(10.3696)
+epoch 3 Full-val-map: tensor(10.2580)
+epoch 3 sampled-val-map: tensor(12.9605)
+tensor([51.6154,  3.0734, 37.7909, 22.2222,  6.1203,  3.4897,  4.6534,  0.6216,
+        12.2089, 15.8004,  3.4382, 19.6006,  0.1905,  0.0000,  0.6221])
+epoch 3 Total_Time 113.57245421409607 Epoch_time 24.47152066230774
+epoch 3 Best Val Map Update tensor(10.2580)
+logit_saved at: ./save_logit_depth_flow/3.pkl
+Epoch 4/99
+----------
+epoch 4 train-map: tensor(11.1161)
+epoch 4 Full-val-map: tensor(9.4346)
+epoch 4 sampled-val-map: tensor(11.4293)
+tensor([47.6096,  8.1956, 39.3288,  2.3859,  5.8300,  3.2577,  2.4805,  0.4217,
+         9.8943, 14.8903,  1.0005, 19.6614,  0.3236,  0.0000,  4.7306])
+epoch 4 Total_Time 128.95530772209167 Epoch_time 15.37101411819458
+Epoch 5/99
+----------
+epoch 5 train-map: tensor(10.9723)
+epoch 5 Full-val-map: tensor(8.9831)
+epoch 5 sampled-val-map: tensor(11.3195)
+tensor([28.0097,  2.4580, 38.7502, 22.9167,  6.9805,  3.3720,  2.6791,  0.7646,
+         9.3867, 19.8050,  3.0518, 19.3354,  0.2041,  0.0000,  0.7598])
+epoch 5 Total_Time 147.13187193870544 Epoch_time 18.17502784729004
+Epoch 6/99
+----------
+epoch 6 train-map: tensor(10.2964)
+epoch 6 Full-val-map: tensor(10.5396)
+epoch 6 sampled-val-map: tensor(13.6049)
+tensor([44.1526,  4.1060, 38.1223, 23.3333,  9.2991,  3.4638,  2.8834,  0.9000,
+        10.2414, 27.5542,  2.3856, 23.0678,  0.2092,  0.0000,  0.7499])
+epoch 6 Total_Time 172.34999346733093 Epoch_time 25.2165629863739
+epoch 6 Best Val Map Update tensor(10.5396)
+logit_saved at: ./save_logit_depth_flow/6.pkl
+Epoch 7/99
+----------
+epoch 7 train-map: tensor(10.8840)
+epoch 7 Full-val-map: tensor(10.0994)
+epoch 7 sampled-val-map: tensor(12.6948)
+tensor([46.0803,  2.7507, 39.4420, 21.5909,  6.3374,  3.3973,  2.8808,  0.6017,
+        11.6469, 18.9325,  2.8750, 20.3709,  0.1931,  0.0000,  0.6277])
+epoch 7 Total_Time 198.0398724079132 Epoch_time 25.67880606651306
+Epoch 8/99
+----------
+epoch 8 train-map: tensor(11.1942)
+epoch 8 Full-val-map: tensor(9.4512)
+epoch 8 sampled-val-map: tensor(11.7542)
+tensor([44.7190,  2.6147, 37.1344, 18.3824,  5.9457,  3.2030,  2.7134,  0.5532,
+        10.3113, 15.4415,  1.2837, 21.4648,  0.2024,  0.0000,  0.5899])
+epoch 8 Total_Time 214.8830165863037 Epoch_time 16.84128165245056
+Epoch 9/99
+----------
+epoch 9 train-map: tensor(12.1075)
+epoch 9 Full-val-map: tensor(9.7014)
+epoch 9 sampled-val-map: tensor(12.2319)
+tensor([41.8060,  4.2190, 36.6536, 21.9298,  6.4815,  3.2542,  2.5901,  0.4419,
+        10.1710, 17.6847,  1.4714, 23.5768,  0.2326,  0.0000,  0.7336])
+epoch 9 Total_Time 229.53999590873718 Epoch_time 14.655417203903198
+Epoch 10/99
+----------
+epoch 10 train-map: tensor(11.9841)
+epoch 10 Full-val-map: tensor(9.2836)
+epoch 10 sampled-val-map: tensor(10.8239)
+tensor([37.4607,  7.5037, 43.3302,  1.7993,  5.0520,  3.4086,  4.7969,  0.5720,
+        10.0336, 11.2437,  1.9532, 23.6779,  0.1923,  0.0000,  0.5101])
+epoch 10 Total_Time 246.4474754333496 Epoch_time 16.905402421951294
+Epoch 11/99
+----------
+epoch 11 train-map: tensor(11.6644)
+epoch 11 Full-val-map: tensor(9.4264)
+epoch 11 sampled-val-map: tensor(11.2155)
+tensor([41.4925,  3.7631, 40.4801,  3.4314,  5.8947,  3.5138,  5.0088,  0.6714,
+         9.9975, 13.9450,  3.5580, 24.4170,  0.1953,  0.0000,  0.6490])
+epoch 11 Total_Time 270.28224325180054 Epoch_time 23.83263111114502
+Epoch 12/99
+----------
+epoch 12 train-map: tensor(11.1575)
+epoch 12 Full-val-map: tensor(9.5490)
+epoch 12 sampled-val-map: tensor(10.8717)
+tensor([39.7419,  2.7423, 43.9868,  2.0820,  5.6711,  3.5551,  4.1972,  0.5536,
+        11.3007, 12.7724,  3.6202, 21.1439,  0.1919,  0.0000,  0.6444])
+epoch 12 Total_Time 287.30808186531067 Epoch_time 17.0245041847229
+Epoch 13/99
+----------
+epoch 13 train-map: tensor(12.1363)
+epoch 13 Full-val-map: tensor(9.5153)
+epoch 13 sampled-val-map: tensor(10.9048)
+tensor([40.1631,  2.2281, 40.2526,  2.6984,  6.8140,  3.4571,  3.7785,  0.5858,
+        10.8769, 16.5508,  2.8580, 21.5431,  0.1905,  0.0000,  0.6696])
+epoch 13 Total_Time 307.52176427841187 Epoch_time 20.211963176727295
+Epoch 14/99
+----------
+epoch 14 train-map: tensor(11.7494)
+epoch 14 Full-val-map: tensor(9.4393)
+epoch 14 sampled-val-map: tensor(11.1090)
+tensor([39.6875,  5.8290, 39.3417,  3.2026,  6.4207,  3.3375,  4.3478,  0.5794,
+        11.1171, 15.0552,  3.0058, 22.7595,  0.1916,  0.0000,  0.6508])
+epoch 14 Total_Time 329.4588370323181 Epoch_time 21.9356472492218
+Epoch 15/99
+----------
+epoch 15 train-map: tensor(12.4161)
+epoch 15 Full-val-map: tensor(10.7737)
+epoch 15 sampled-val-map: tensor(13.1520)
+tensor([43.2215,  2.0345, 38.1268,  7.6705, 18.3373,  3.3936,  3.7086,  0.7534,
+        10.7095, 28.6651,  2.8882, 23.6983,  0.2012,  0.0000,  0.7198])
+Epoch 00016: reducing learning rate of group 0 to 5.0000e-05.
+epoch 15 Total_Time 348.96321535110474 Epoch_time 19.50297713279724
+epoch 15 Best Val Map Update tensor(10.7737)
+logit_saved at: ./save_logit_depth_flow/15.pkl
+Epoch 16/99
+----------
+epoch 16 train-map: tensor(12.7560)
+epoch 16 Full-val-map: tensor(10.3722)
+epoch 16 sampled-val-map: tensor(13.0996)
+tensor([39.8659,  2.1618, 38.5857, 10.2500, 21.8565,  3.3298,  3.1320,  0.6980,
+        10.5659, 27.3637,  1.3481, 23.3454,  0.1965,  0.0000,  0.6954])
+epoch 16 Total_Time 368.7309193611145 Epoch_time 19.757295846939087
+Epoch 17/99
+----------
+epoch 17 train-map: tensor(13.3234)
+epoch 17 Full-val-map: tensor(10.1049)
+epoch 17 sampled-val-map: tensor(12.3710)
+tensor([39.9637,  2.5211, 39.3032,  7.8462, 18.7842,  3.2626,  2.9923,  0.6065,
+        10.5216, 21.6340,  1.2703, 23.6259,  0.1949,  0.0000,  0.6678])
+epoch 17 Total_Time 389.22894501686096 Epoch_time 20.49590563774109
+Epoch 18/99
+----------
+epoch 18 train-map: tensor(13.9391)
+epoch 18 Full-val-map: tensor(9.9255)
+epoch 18 sampled-val-map: tensor(12.1419)
+tensor([38.5656,  2.2195, 39.3628, 13.8889, 11.7208,  3.4145,  3.0109,  0.5233,
+        10.2045, 19.4722,  1.2922, 25.4467,  0.2049,  0.0000,  0.6601])
+epoch 18 Total_Time 412.57898449897766 Epoch_time 23.34839177131653
+Epoch 19/99
+----------
+epoch 19 train-map: tensor(13.6136)
+epoch 19 Full-val-map: tensor(10.1132)
+epoch 19 sampled-val-map: tensor(12.7884)
+tensor([36.0610,  2.2660, 39.8150, 16.2500, 18.6189,  3.2556,  2.9418,  0.6585,
+        10.3954, 20.7004,  1.3108, 25.8951,  0.2141,  0.0000,  0.6546])
+epoch 19 Total_Time 429.839396238327 Epoch_time 17.25891089439392
+Epoch 20/99
+----------
+epoch 20 train-map: tensor(14.1090)
+epoch 20 Full-val-map: tensor(9.7971)
+epoch 20 sampled-val-map: tensor(11.7978)
+tensor([36.6117,  2.1525, 39.7014, 10.7955, 11.6467,  3.2890,  3.1075,  0.5095,
+        10.1749, 20.3844,  1.1891, 24.7631,  0.1972,  0.0000,  0.6473])
+epoch 20 Total_Time 452.4794690608978 Epoch_time 22.63597011566162
+Epoch 21/99
+----------
+epoch 21 train-map: tensor(13.9892)
+epoch 21 Full-val-map: tensor(9.9653)
+epoch 21 sampled-val-map: tensor(12.3573)
+tensor([36.2900,  2.1384, 38.4747, 14.5833, 14.6120,  3.3083,  2.8427,  0.5381,
+        10.3204, 23.6335,  1.2334, 24.1643,  0.2041,  0.0000,  0.6596])
+epoch 21 Total_Time 468.84242510795593 Epoch_time 16.36145853996277
+Epoch 22/99
+----------
+epoch 22 train-map: tensor(14.3327)
+epoch 22 Full-val-map: tensor(9.8310)
+epoch 22 sampled-val-map: tensor(12.2904)
+tensor([36.0868,  3.6663, 39.2370, 16.6667, 11.2493,  3.2734,  2.8450,  0.6014,
+        10.4380, 20.7951,  1.2509, 25.0839,  0.2268,  0.0000,  0.6449])
+epoch 22 Total_Time 483.8278567790985 Epoch_time 14.98401689529419
+Epoch 23/99
+----------
+epoch 23 train-map: tensor(14.5396)
+epoch 23 Full-val-map: tensor(9.8941)
+epoch 23 sampled-val-map: tensor(13.1432)
+tensor([35.1161,  2.1229, 38.2610, 17.1429, 21.6456,  3.2584,  2.8629,  0.5381,
+        10.2967, 26.1116,  1.2229, 24.5760,  0.2198,  0.0000,  0.6305])
+epoch 23 Total_Time 498.55210995674133 Epoch_time 14.722630262374878
+Epoch 24/99
+----------
+epoch 24 train-map: tensor(13.7605)
+epoch 24 Full-val-map: tensor(9.6045)
+epoch 24 sampled-val-map: tensor(11.7737)
+tensor([36.5623,  2.1969, 39.6109, 17.6923,  8.4840,  3.2332,  2.7806,  0.4967,
+        10.6077, 17.0109,  1.2308, 24.0455,  0.2336,  0.0000,  0.6458])
+epoch 24 Total_Time 509.6487250328064 Epoch_time 11.095253467559814
+Epoch 25/99
+----------
+epoch 25 train-map: tensor(14.2130)
+epoch 25 Full-val-map: tensor(9.6954)
+epoch 25 sampled-val-map: tensor(12.0524)
+tensor([38.2840,  2.1759, 39.2236, 20.0000,  7.1621,  3.2658,  2.8314,  0.4401,
+        10.3610, 18.1561,  1.0788, 24.8950,  0.2262,  0.0000,  0.6330])
+epoch 25 Total_Time 519.6885523796082 Epoch_time 10.03792428970337
+Epoch 26/99
+----------
+epoch 26 train-map: tensor(13.7032)
+epoch 26 Full-val-map: tensor(9.8129)
+epoch 26 sampled-val-map: tensor(12.4660)
+tensor([39.9178,  2.0126, 37.5177, 19.0909,  8.7225,  3.3554,  2.8027,  0.5704,
+        11.0529, 21.9987,  1.2540, 25.3056,  0.2703,  0.0000,  0.6523])
+Epoch 00027: reducing learning rate of group 0 to 2.5000e-05.
+epoch 26 Total_Time 538.9719862937927 Epoch_time 19.280874252319336
+Epoch 27/99
+----------
+epoch 27 train-map: tensor(14.6207)
+epoch 27 Full-val-map: tensor(10.0411)
+epoch 27 sampled-val-map: tensor(12.4780)
+tensor([40.0865,  2.2903, 38.0048, 20.0000,  9.3625,  3.3974,  2.8063,  0.5282,
+        11.0760, 19.7363,  1.2488, 25.2653,  0.2519,  0.0000,  0.6378])
+epoch 27 Total_Time 549.0804426670074 Epoch_time 10.10727834701538
+Epoch 28/99
+----------
+epoch 28 train-map: tensor(15.1127)
+epoch 28 Full-val-map: tensor(10.1281)
+epoch 28 sampled-val-map: tensor(12.8088)
+tensor([40.6723,  2.2679, 38.1193, 21.1111, 11.0309,  3.3334,  2.8146,  0.5221,
+        11.1303, 20.8405,  1.2457, 25.3397,  0.2564,  0.0000,  0.6385])
+epoch 28 Total_Time 559.1086931228638 Epoch_time 10.02695894241333
+Epoch 29/99
+----------
+epoch 29 train-map: tensor(15.1422)
+epoch 29 Full-val-map: tensor(10.0424)
+epoch 29 sampled-val-map: tensor(12.6035)
+tensor([41.0565,  2.1923, 39.2247, 21.1111,  8.9959,  3.2942,  2.8459,  0.4919,
+        11.1919, 19.7869,  1.2175, 24.1403,  0.2688,  0.0000,  0.6318])
+epoch 29 Total_Time 575.8677694797516 Epoch_time 16.757742166519165
+Epoch 30/99
+----------
+epoch 30 train-map: tensor(14.9409)
+epoch 30 Full-val-map: tensor(9.9743)
+epoch 30 sampled-val-map: tensor(12.5538)
+tensor([40.9642,  2.2023, 38.9607, 21.1111,  8.5654,  3.2503,  2.8171,  0.4854,
+        11.1956, 18.8859,  1.1762, 25.2347,  0.2747,  0.0000,  0.6289])
+epoch 30 Total_Time 585.9541327953339 Epoch_time 10.085216760635376
+Epoch 31/99
+----------
+epoch 31 train-map: tensor(14.7060)
+epoch 31 Full-val-map: tensor(10.0143)
+epoch 31 sampled-val-map: tensor(12.6548)
+tensor([42.1411,  2.2447, 39.4819, 21.1111,  8.9902,  3.2196,  2.8724,  0.4980,
+        11.1881, 19.3651,  1.1980, 23.9409,  0.2857,  0.0000,  0.6308])
+epoch 31 Total_Time 595.9435756206512 Epoch_time 9.988120079040527
+Epoch 32/99
+----------
+epoch 32 train-map: tensor(14.8640)
+epoch 32 Full-val-map: tensor(9.5992)
+epoch 32 sampled-val-map: tensor(12.1017)
+tensor([40.7098,  1.9062, 38.2444, 21.1111,  9.0260,  3.3196,  2.7214,  0.6053,
+        11.7261, 19.6162,  1.1987, 18.2923,  0.3040,  0.0000,  0.6423])
+epoch 32 Total_Time 605.9960350990295 Epoch_time 10.051047801971436
+Epoch 33/99
+----------
+epoch 33 train-map: tensor(15.1774)
+epoch 33 Full-val-map: tensor(9.9615)
+epoch 33 sampled-val-map: tensor(12.4296)
+tensor([41.0280,  2.0650, 39.3152, 22.5000,  8.1096,  3.3981,  2.9454,  0.6952,
+        11.8473, 18.7375,  1.3369, 21.0271,  0.3247,  0.0000,  0.6846])
+epoch 33 Total_Time 615.8515536785126 Epoch_time 9.854203462600708
+Epoch 34/99
+----------
+epoch 34 train-map: tensor(15.5365)
+epoch 34 Full-val-map: tensor(10.0302)
+epoch 34 sampled-val-map: tensor(12.7506)
+tensor([40.9190,  2.1744, 38.1702, 21.1111, 10.3509,  3.2577,  2.8147,  0.5410,
+        11.2241, 21.0037,  1.2313, 24.7687,  0.3096,  0.0000,  0.6317])
+epoch 34 Total_Time 625.7717566490173 Epoch_time 9.919322729110718
+Epoch 35/99
+----------
+epoch 35 train-map: tensor(15.2130)
+epoch 35 Full-val-map: tensor(9.9979)
+epoch 35 sampled-val-map: tensor(12.5677)
+tensor([42.9814,  2.1640, 39.3244, 21.1111,  8.3298,  3.2570,  2.9820,  0.4934,
+        11.2840, 19.1559,  1.2146, 22.6919,  0.3236,  0.0000,  0.6351])
+epoch 35 Total_Time 635.6050629615784 Epoch_time 9.831806898117065
+Epoch 36/99
+----------
+epoch 36 train-map: tensor(15.3313)
+epoch 36 Full-val-map: tensor(10.0280)
+epoch 36 sampled-val-map: tensor(12.6049)
+tensor([43.2195,  2.1055, 38.4830, 21.1111,  8.6561,  3.1976,  2.9925,  0.4866,
+        11.3634, 19.1571,  1.1983, 23.5518,  0.3106,  0.0000,  0.6356])
+epoch 36 Total_Time 647.8297636508942 Epoch_time 12.223405838012695
+Epoch 37/99
+----------
+epoch 37 train-map: tensor(15.4350)
+epoch 37 Full-val-map: tensor(10.1294)
+epoch 37 sampled-val-map: tensor(12.7827)
+tensor([43.5453,  2.1298, 38.8411, 21.1111,  9.3074,  3.1562,  3.0013,  0.5094,
+        11.4529, 20.5161,  1.2196, 23.2108,  0.3279,  0.0000,  0.6281])
+Epoch 00038: reducing learning rate of group 0 to 1.2500e-05.
+epoch 37 Total_Time 663.0250730514526 Epoch_time 15.194098711013794
+Epoch 38/99
+----------
+epoch 38 train-map: tensor(15.8466)
+epoch 38 Full-val-map: tensor(10.1077)
+epoch 38 sampled-val-map: tensor(12.6181)
+tensor([43.8305,  2.1432, 39.1765, 21.1111,  7.6783,  3.1654,  3.0796,  0.4976,
+        11.4990, 19.6832,  1.2137, 22.6093,  0.3367,  0.0000,  0.6295])
+epoch 38 Total_Time 678.2855944633484 Epoch_time 15.259054899215698
+Epoch 39/99
+----------
+epoch 39 train-map: tensor(15.7503)
+epoch 39 Full-val-map: tensor(10.0984)
+epoch 39 sampled-val-map: tensor(12.6844)
+tensor([44.2604,  2.0990, 38.7486, 21.1111,  8.6114,  3.1632,  3.1200,  0.5047,
+        11.4440, 19.6934,  1.2243, 22.6246,  0.3472,  0.0000,  0.6303])
+epoch 39 Total_Time 693.3295376300812 Epoch_time 15.04272985458374
+Epoch 40/99
+----------
+epoch 40 train-map: tensor(15.9445)
+epoch 40 Full-val-map: tensor(10.0669)
+epoch 40 sampled-val-map: tensor(12.5839)
+tensor([43.8669,  2.0835, 38.7998, 21.1111,  7.8942,  3.1374,  3.1534,  0.4831,
+        11.5193, 19.6794,  1.1989, 22.2809,  0.3378,  0.0000,  0.6283])
+epoch 40 Total_Time 712.0977940559387 Epoch_time 18.76709485054016
+Epoch 41/99
+----------
+epoch 41 train-map: tensor(15.9187)
+epoch 41 Full-val-map: tensor(10.1801)
+epoch 41 sampled-val-map: tensor(12.7983)
+tensor([44.9319,  2.0971, 38.9292, 21.1111,  8.9253,  3.1447,  3.4666,  0.4856,
+        11.5160, 20.0690,  1.2039, 22.3003,  0.3650,  0.0000,  0.6300])
+epoch 41 Total_Time 727.065976858139 Epoch_time 14.966933727264404
+Epoch 42/99
+----------
+epoch 42 train-map: tensor(15.7625)
+epoch 42 Full-val-map: tensor(10.1048)
+epoch 42 sampled-val-map: tensor(12.6400)
+tensor([43.9071,  2.0643, 38.5730, 21.1111,  8.1064,  3.1515,  3.2003,  0.4827,
+        11.5711, 20.2493,  1.1804, 22.3862,  0.3484,  0.0000,  0.6284])
+epoch 42 Total_Time 742.2486724853516 Epoch_time 15.181442975997925
+Epoch 43/99
+----------
+epoch 43 train-map: tensor(15.9237)
+epoch 43 Full-val-map: tensor(10.1603)
+epoch 43 sampled-val-map: tensor(12.8461)
+tensor([44.8448,  2.0610, 38.6502, 22.5000,  8.3941,  3.1598,  3.4362,  0.4827,
+        11.5802, 20.3791,  1.1633, 22.2084,  0.3584,  0.0000,  0.6273])
+epoch 43 Total_Time 757.430762052536 Epoch_time 15.176553010940552
+Epoch 44/99
+----------
+epoch 44 train-map: tensor(16.2276)
+epoch 44 Full-val-map: tensor(10.2251)
+epoch 44 sampled-val-map: tensor(12.9966)
+tensor([45.5506,  2.0464, 38.6861, 22.5000,  9.3537,  3.1049,  3.2367,  0.4917,
+        11.6427, 21.1217,  1.1953, 22.0250,  0.3731,  0.0000,  0.6248])
+epoch 44 Total_Time 773.8696029186249 Epoch_time 16.437553644180298
+Epoch 45/99
+----------
+epoch 45 train-map: tensor(16.0591)
+epoch 45 Full-val-map: tensor(10.1139)
+epoch 45 sampled-val-map: tensor(12.6790)
+tensor([44.6596,  2.0455, 38.9950, 21.1111,  8.0779,  3.1045,  3.5526,  0.5007,
+        11.6643, 19.3916,  1.2054, 22.1940,  0.3817,  0.0000,  0.6222])
+epoch 45 Total_Time 789.6781983375549 Epoch_time 15.806426286697388
+Epoch 46/99
+----------
+epoch 46 train-map: tensor(16.1970)
+epoch 46 Full-val-map: tensor(10.1098)
+epoch 46 sampled-val-map: tensor(12.7446)
+tensor([46.0225,  2.0369, 38.7265, 21.1111,  7.8937,  3.1200,  3.4170,  0.4923,
+        11.6866, 19.6374,  1.1778, 22.1036,  0.3745,  0.0000,  0.6239])
+epoch 46 Total_Time 804.8138267993927 Epoch_time 15.1343412399292
+Epoch 47/99
+----------
+epoch 47 train-map: tensor(15.9665)
+epoch 47 Full-val-map: tensor(10.1522)
+epoch 47 sampled-val-map: tensor(12.9100)
+tensor([45.8092,  2.0388, 38.7265, 22.5000,  8.6360,  3.1134,  3.5082,  0.4840,
+        11.7360, 20.1890,  1.2028, 21.7562,  0.4115,  0.0000,  0.6279])
+epoch 47 Total_Time 820.0783979892731 Epoch_time 15.263310432434082
+Epoch 48/99
+----------
+epoch 48 train-map: tensor(16.0904)
+epoch 48 Full-val-map: tensor(10.2379)
+epoch 48 sampled-val-map: tensor(13.1460)
+tensor([46.1024,  2.0500, 38.8357, 22.5000, 10.3977,  3.0968,  3.6508,  0.5045,
+        11.8155, 21.3003,  1.1845, 21.5286,  0.4525,  0.0000,  0.6250])
+Epoch 00049: reducing learning rate of group 0 to 6.2500e-06.
+epoch 48 Total_Time 835.1431362628937 Epoch_time 15.063435554504395
+Epoch 49/99
+----------
+epoch 49 train-map: tensor(16.2822)
+epoch 49 Full-val-map: tensor(10.1672)
+epoch 49 sampled-val-map: tensor(12.9761)
+tensor([46.0555,  2.0218, 38.8932, 22.5000,  8.9764,  3.1175,  3.7591,  0.4966,
+        11.8503, 20.2660,  1.1967, 21.4099,  0.4950,  0.0000,  0.6267])
+epoch 49 Total_Time 850.2370116710663 Epoch_time 15.092470407485962
+Epoch 50/99
+----------
+epoch 50 train-map: tensor(16.3989)
+epoch 50 Full-val-map: tensor(10.1487)
+epoch 50 sampled-val-map: tensor(12.9008)
+tensor([46.0749,  2.0193, 38.8976, 22.5000,  8.6415,  3.1092,  3.7340,  0.4993,
+        11.8359, 19.4934,  1.1927, 21.4866,  0.5000,  0.0000,  0.6263])
+epoch 50 Total_Time 866.1822299957275 Epoch_time 15.944057941436768
+Epoch 51/99
+----------
+epoch 51 train-map: tensor(16.4021)
+epoch 51 Full-val-map: tensor(10.1279)
+epoch 51 sampled-val-map: tensor(12.8405)
+tensor([45.6620,  2.0263, 38.8424, 22.5000,  8.3682,  3.1012,  3.5641,  0.5022,
+        11.8785, 19.5506,  1.1797, 21.5272,  0.4405,  0.0000,  0.6243])
+epoch 51 Total_Time 881.275139093399 Epoch_time 15.09161925315857
+Epoch 52/99
+----------
+epoch 52 train-map: tensor(16.5784)
+epoch 52 Full-val-map: tensor(10.2071)
+epoch 52 sampled-val-map: tensor(12.9913)
+tensor([46.8511,  2.0000, 38.8149, 22.5000,  7.9971,  3.0964,  3.8764,  0.5009,
+        11.9553, 20.4359,  1.1975, 21.4996,  0.5263,  0.0000,  0.6265])
+epoch 52 Total_Time 896.5069308280945 Epoch_time 15.230588912963867
+Epoch 53/99
+----------
+epoch 53 train-map: tensor(16.5705)
+epoch 53 Full-val-map: tensor(10.1967)
+epoch 53 sampled-val-map: tensor(12.9807)
+tensor([46.9137,  2.0088, 38.9099, 22.5000,  7.9899,  3.1104,  3.7953,  0.5056,
+        11.9154, 20.3334,  1.1881, 21.3702,  0.5618,  0.0000,  0.6274])
+epoch 53 Total_Time 911.6359171867371 Epoch_time 15.127756595611572
+Epoch 54/99
+----------
+epoch 54 train-map: tensor(16.6597)
+epoch 54 Full-val-map: tensor(10.1960)
+epoch 54 sampled-val-map: tensor(13.0326)
+tensor([46.8740,  2.0022, 39.0288, 22.5000,  8.7152,  3.1030,  3.8124,  0.5109,
+        11.9833, 20.4775,  1.1795, 21.0701,  0.5714,  0.0000,  0.6276])
+epoch 54 Total_Time 926.6528062820435 Epoch_time 15.015698194503784
+Epoch 55/99
+----------
+epoch 55 train-map: tensor(16.5418)
+epoch 55 Full-val-map: tensor(10.2030)
+epoch 55 sampled-val-map: tensor(13.0398)
+tensor([47.0531,  2.0047, 39.1323, 22.5000,  8.2039,  3.1071,  3.9408,  0.5242,
+        11.9923, 20.6806,  1.1750, 20.9897,  0.6250,  0.0000,  0.6292])
+epoch 55 Total_Time 941.6406610012054 Epoch_time 14.986611127853394
+Epoch 56/99
+----------
+epoch 56 train-map: tensor(16.1602)
+epoch 56 Full-val-map: tensor(10.3180)
+epoch 56 sampled-val-map: tensor(13.0679)
+tensor([46.9582,  1.9965, 39.1141, 19.0909, 10.3909,  3.0472,  3.7239,  0.5185,
+        12.0480, 21.9881,  1.1641, 21.7312,  0.5556,  0.0000,  0.6234])
+epoch 56 Total_Time 956.8834147453308 Epoch_time 15.241588115692139
+Epoch 57/99
+----------
+epoch 57 train-map: tensor(16.6565)
+epoch 57 Full-val-map: tensor(10.2253)
+epoch 57 sampled-val-map: tensor(13.0530)
+tensor([47.4267,  1.9808, 39.2091, 22.5000,  7.6321,  3.0974,  4.1637,  0.5294,
+        12.0426, 20.5257,  1.1726, 21.1706,  0.6667,  0.0000,  0.6250])
+epoch 57 Total_Time 972.0420780181885 Epoch_time 15.157725811004639
+Epoch 58/99
+----------
+epoch 58 train-map: tensor(16.5292)
+epoch 58 Full-val-map: tensor(10.3256)
+epoch 58 sampled-val-map: tensor(13.3908)
+tensor([46.9744,  2.0300, 39.1174, 22.5000, 11.1436,  3.0622,  3.9969,  0.5301,
+        12.0777, 22.5017,  1.1750, 21.0817,  0.6536,  0.0000,  0.6264])
+epoch 58 Total_Time 987.0970649719238 Epoch_time 15.053803205490112
+Epoch 59/99
+----------
+epoch 59 train-map: tensor(16.5962)
+epoch 59 Full-val-map: tensor(10.3012)
+epoch 59 sampled-val-map: tensor(13.1426)
+tensor([47.4292,  1.9673, 39.0586, 22.5000,  8.3265,  3.0790,  4.1605,  0.5099,
+        11.7417, 21.7050,  1.1698, 21.0342,  0.6897,  0.0000,  0.6247])
+Epoch 00060: reducing learning rate of group 0 to 3.1250e-06.
+epoch 59 Total_Time 1002.6068449020386 Epoch_time 15.50854754447937
+Epoch 60/99
+----------
+epoch 60 train-map: tensor(16.8968)
+epoch 60 Full-val-map: tensor(10.3002)
+epoch 60 sampled-val-map: tensor(13.1359)
+tensor([47.5953,  1.9772, 39.1874, 22.5000,  8.0194,  3.0895,  4.2043,  0.5177,
+        11.7409, 21.5544,  1.1710, 20.9923,  0.7299,  0.0000,  0.6238])
+epoch 60 Total_Time 1017.582338809967 Epoch_time 14.974356889724731
+Epoch 61/99
+----------
+epoch 61 train-map: tensor(17.0023)
+epoch 61 Full-val-map: tensor(10.3102)
+epoch 61 sampled-val-map: tensor(13.1614)
+tensor([47.5443,  1.9616, 39.1571, 22.5000,  8.3149,  3.0945,  4.2443,  0.5208,
+        11.7781, 21.6782,  1.1736, 20.8975,  0.7692,  0.0000,  0.6260])
+epoch 61 Total_Time 1032.4927127361298 Epoch_time 14.909511804580688
+Epoch 62/99
+----------
+epoch 62 train-map: tensor(16.8629)
+epoch 62 Full-val-map: tensor(10.3241)
+epoch 62 sampled-val-map: tensor(13.1533)
+tensor([47.5577,  1.9432, 39.1775, 22.5000,  8.1510,  3.0934,  4.2284,  0.5292,
+        11.7753, 21.7354,  1.1678, 20.8867,  0.7752,  0.0000,  0.6258])
+epoch 62 Total_Time 1047.5136363506317 Epoch_time 15.019769191741943
+Epoch 63/99
+----------
+epoch 63 train-map: tensor(16.7956)
+epoch 63 Full-val-map: tensor(10.2997)
+epoch 63 sampled-val-map: tensor(13.1401)
+tensor([47.5023,  1.9490, 39.1377, 22.5000,  8.1591,  3.0887,  4.2120,  0.5231,
+        11.6068, 21.7146,  1.1712, 21.0030,  0.7692,  0.0000,  0.6243])
+epoch 63 Total_Time 1062.5203714370728 Epoch_time 15.005868434906006
+Epoch 64/99
+----------
+epoch 64 train-map: tensor(16.8236)
+epoch 64 Full-val-map: tensor(10.3030)
+epoch 64 sampled-val-map: tensor(13.1151)
+tensor([47.1416,  1.9712, 39.1460, 22.5000,  8.3363,  3.0752,  4.1273,  0.5131,
+        11.6310, 21.7133,  1.1588, 20.9721,  0.7042,  0.0000,  0.6209])
+epoch 64 Total_Time 1077.5634915828705 Epoch_time 15.041942834854126
+Epoch 65/99
+----------
+epoch 65 train-map: tensor(16.9182)
+epoch 65 Full-val-map: tensor(10.2851)
+epoch 65 sampled-val-map: tensor(13.0861)
+tensor([47.3684,  1.9430, 39.2803, 22.5000,  7.4914,  3.0900,  4.2905,  0.5261,
+        11.6518, 21.5866,  1.1638, 20.8283,  0.8621,  0.0000,  0.6238])
+epoch 65 Total_Time 1092.8443088531494 Epoch_time 15.279892921447754
+Epoch 66/99
+----------
+epoch 66 train-map: tensor(16.7730)
+epoch 66 Full-val-map: tensor(10.3508)
+epoch 66 sampled-val-map: tensor(13.2680)
+tensor([47.0496,  1.9609, 39.2551, 22.5000,  9.5546,  3.0750,  4.2742,  0.5371,
+        11.6541, 22.4210,  1.1643, 20.8620,  0.8197,  0.0000,  0.6245])
+epoch 66 Total_Time 1108.0832221508026 Epoch_time 15.237247467041016
+Epoch 67/99
+----------
+epoch 67 train-map: tensor(16.8438)
+epoch 67 Full-val-map: tensor(10.2882)
+epoch 67 sampled-val-map: tensor(13.0901)
+tensor([47.0658,  1.9520, 39.2561, 22.5000,  7.7162,  3.0856,  4.3481,  0.5238,
+        11.6586, 21.6354,  1.1597, 20.8027,  0.9346,  0.0000,  0.6234])
+epoch 67 Total_Time 1123.0671191215515 Epoch_time 14.982516765594482
+Epoch 68/99
+----------
+epoch 68 train-map: tensor(17.0426)
+epoch 68 Full-val-map: tensor(10.2945)
+epoch 68 sampled-val-map: tensor(13.1275)
+tensor([46.7813,  1.9716, 39.3488, 22.5000,  8.1386,  3.0896,  4.3747,  0.5348,
+        11.6717, 21.8366,  1.1624, 20.7600,  0.9901,  0.0000,  0.6247])
+epoch 68 Total_Time 1138.0543332099915 Epoch_time 14.986337423324585
+Epoch 69/99
+----------
+epoch 69 train-map: tensor(16.8550)
+epoch 69 Full-val-map: tensor(10.3009)
+epoch 69 sampled-val-map: tensor(13.1016)
+tensor([47.0719,  1.9306, 39.2324, 22.5000,  7.7560,  3.0813,  4.2992,  0.5240,
+        11.6879, 21.8455,  1.1580, 20.8295,  0.8850,  0.0000,  0.6213])
+epoch 69 Total_Time 1153.0516233444214 Epoch_time 14.996425867080688
+Epoch 70/99
+----------
+epoch 70 train-map: tensor(17.1272)
+epoch 70 Full-val-map: tensor(10.3638)
+epoch 70 sampled-val-map: tensor(13.2254)
+tensor([47.3886,  1.9117, 39.2953, 22.5000,  8.3094,  3.0685,  4.4381,  0.5360,
+        11.7260, 22.4138,  1.1569, 20.8720,  0.9174,  0.0000,  0.6210])
+Epoch 00071: reducing learning rate of group 0 to 1.5625e-06.
+epoch 70 Total_Time 1168.0157370567322 Epoch_time 14.963259935379028
+Epoch 71/99
+----------
+epoch 71 train-map: tensor(17.1073)
+epoch 71 Full-val-map: tensor(10.3432)
+epoch 71 sampled-val-map: tensor(13.2092)
+tensor([47.3648,  1.9101, 39.2728, 22.5000,  8.1675,  3.0760,  4.5225,  0.5393,
+        11.7265, 22.2869,  1.1560, 20.8210,  0.9615,  0.0000,  0.6235])
+epoch 71 Total_Time 1182.879995584488 Epoch_time 14.863122701644897
+Epoch 72/99
+----------
+epoch 72 train-map: tensor(17.2782)
+epoch 72 Full-val-map: tensor(10.3406)
+epoch 72 sampled-val-map: tensor(13.1932)
+tensor([47.3627,  1.9113, 39.2836, 22.5000,  8.1774,  3.0783,  4.4495,  0.5309,
+        11.7369, 22.1210,  1.1569, 20.8494,  0.9259,  0.0000,  0.6203])
+epoch 72 Total_Time 1197.8075549602509 Epoch_time 14.926722764968872
+Epoch 73/99
+----------
+epoch 73 train-map: tensor(17.0452)
+epoch 73 Full-val-map: tensor(10.3402)
+epoch 73 sampled-val-map: tensor(13.2114)
+tensor([47.3646,  1.9047, 39.3323, 22.5000,  8.1973,  3.0753,  4.5460,  0.5363,
+        11.7435, 22.1955,  1.1529, 20.7991,  0.9901,  0.0000,  0.6226])
+epoch 73 Total_Time 1212.8261368274689 Epoch_time 15.017725944519043
+Epoch 74/99
+----------
+epoch 74 train-map: tensor(17.1267)
+epoch 74 Full-val-map: tensor(10.3093)
+epoch 74 sampled-val-map: tensor(13.1502)
+tensor([46.9305,  1.9159, 39.3488, 22.5000,  7.9140,  3.0788,  4.5220,  0.5342,
+        11.6957, 22.0979,  1.1552, 20.7672,  1.0204,  0.0000,  0.6217])
+epoch 74 Total_Time 1228.2937569618225 Epoch_time 15.466740131378174
+Epoch 75/99
+----------
+epoch 75 train-map: tensor(17.1159)
+epoch 75 Full-val-map: tensor(10.3473)
+epoch 75 sampled-val-map: tensor(13.2011)
+tensor([46.9024,  1.9143, 39.4208, 22.5000,  8.0442,  3.0756,  4.5378,  0.5473,
+        11.8094, 22.4602,  1.1545, 20.7952,  1.0309,  0.0000,  0.6230])
+epoch 75 Total_Time 1243.4623348712921 Epoch_time 15.167088747024536
+Epoch 76/99
+----------
+epoch 76 train-map: tensor(17.1632)
+epoch 76 Full-val-map: tensor(10.3144)
+epoch 76 sampled-val-map: tensor(13.1484)
+tensor([46.8657,  1.9100, 39.3622, 22.5000,  7.9149,  3.0814,  4.5184,  0.5372,
+        11.7851, 22.0653,  1.1547, 20.7516,  1.0101,  0.0000,  0.6217])
+epoch 76 Total_Time 1259.2347898483276 Epoch_time 15.771511793136597
+Epoch 77/99
+----------
+epoch 77 train-map: tensor(17.0470)
+epoch 77 Full-val-map: tensor(10.3754)
+epoch 77 sampled-val-map: tensor(13.2662)
+tensor([47.1790,  1.8886, 39.3238, 22.5000,  8.7581,  3.0626,  4.5206,  0.5434,
+        11.7937, 22.6501,  1.1549, 20.7399,  0.9901,  0.0000,  0.6213])
+epoch 77 Total_Time 1274.273808479309 Epoch_time 15.037755966186523
+Epoch 78/99
+----------
+epoch 78 train-map: tensor(17.0125)
+epoch 78 Full-val-map: tensor(10.3486)
+epoch 78 sampled-val-map: tensor(13.1812)
+tensor([46.8796,  1.8900, 39.3446, 22.5000,  8.0604,  3.0742,  4.5265,  0.5442,
+        11.7883, 22.3499,  1.1535, 20.7726,  1.0309,  0.0000,  0.6217])
+epoch 78 Total_Time 1289.459486246109 Epoch_time 15.184467792510986
+Epoch 79/99
+----------
+epoch 79 train-map: tensor(17.1384)
+epoch 79 Full-val-map: tensor(10.3733)
+epoch 79 sampled-val-map: tensor(13.1960)
+tensor([47.1748,  1.8826, 39.3508, 22.5000,  8.0604,  3.0753,  4.5061,  0.5443,
+        11.7940, 22.2861,  1.1535, 20.7625,  1.0309,  0.0000,  0.6224])
+epoch 79 Total_Time 1304.59201836586 Epoch_time 15.131600379943848
+Epoch 80/99
+----------
+epoch 80 train-map: tensor(17.0909)
+epoch 80 Full-val-map: tensor(10.3821)
+epoch 80 sampled-val-map: tensor(13.2147)
+tensor([47.2997,  1.8839, 39.3969, 22.5000,  8.0551,  3.0776,  4.6197,  0.5453,
+        11.8208, 22.2797,  1.1516, 20.7316,  1.0204,  0.0000,  0.6228])
+epoch 80 Total_Time 1319.5756013393402 Epoch_time 14.982338905334473
+Epoch 81/99
+----------
+epoch 81 train-map: tensor(17.2005)
+Traceback (most recent call last):
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 284, in <module>
+    project=config.PROJECT_NAME,
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 109, in run
+    _, _ = train_step(model, gpu, optimizer, dataloader['train'], epoch)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 210, in val_step
+    num_iter += 1
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 152, in run_network
+    inputs_depth = inputs_depth.squeeze(3).squeeze(3)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/MSTCT_Model.py", line 48, in forward
+    inputs = self.dropout(inputs)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 296, in forward
+    x = blk(x)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 169, in forward
+    beta = self.GatingMechanism_3(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 34, in forward
+    gate = torch.sigmoid(self.fc2(hidden))
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 302, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/conv.py", line 298, in _conv_forward
+    return F.conv1d(input, weight, bias, self.stride,
+KeyboardInterrupt

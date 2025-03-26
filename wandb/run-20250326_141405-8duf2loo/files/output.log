@@ -1,0 +1,46 @@
+Epoch 0/99
+----------
+/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/functional.py:1944: UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
+  warnings.warn("nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.")
+/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))
+/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/apmeter.py:118: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  rg = torch.range(1, self.scores.size(0)).float()
+/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/apmeter.py:145: UserWarning: indexing with dtype torch.uint8 is now deprecated, please use a dtype torch.bool instead. (Triggered internally at  /opt/conda/conda-bld/pytorch_1646755888698/work/aten/src/ATen/native/IndexingUtils.h:28.)
+  ap[k] = precision[truth.byte()].sum() / max(truth.sum(), 1)
+epoch 0 train-map: tensor(6.9104)
+epoch 0 Full-val-map: tensor(9.9730)
+epoch 0 sampled-val-map: tensor(11.1711)
+tensor([52.6374,  2.6387, 39.8299,  1.7111,  5.6443,  3.3311,  3.4459,  0.4474,
+        10.8528, 13.2621,  1.1384, 20.1892,  0.7752,  0.0000,  0.4916])
+epoch 0 Total_Time 39.03148007392883 Epoch_time 39.031477212905884
+epoch 0 Best Val Map Update tensor(9.9730)
+logit_saved at: ./save_logit_depth_flow_pose_sam/0.pkl
+Epoch 1/99
+----------
+Traceback (most recent call last):
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 295, in <module>
+    run([(rgb_model, 0, dataloaders, optimizer, lr_sched, args.comp_info)], criterion, num_epochs=int(args.epoch))
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 111, in run
+    _, _ = train_step(model, gpu, optimizer, dataloader['train'], epoch)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 190, in train_step
+    outputs, loss, probs, err = run_network(model, data, gpu, epoch, is_train=True)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 163, in run_network
+    outputs_final,out_hm, loss_destillation = model(inputs, inputs_flow, inputs_depth, input_pose, input_SAM, input_VLM, is_train)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/MSTCT_Model.py", line 42, in forward
+    x = self.TemporalEncoder(inputs)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 288, in forward
+    x = blk(x)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 165, in forward
+    elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 384:
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/Temporal_Encoder.py", line 117, in forward
+    attn = attn.softmax(dim=-1)
+KeyboardInterrupt

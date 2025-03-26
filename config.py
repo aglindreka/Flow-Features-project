@@ -1,0 +1,2 @@
+WANDB_KEY = '3a08917aa5a0ebe6a7ded2f3cbf19ee3e27d4154'
+PROJECT_NAME = 'MS-TCT Project'

@@ -1,0 +1,22 @@
+Epoch 0/49
+----------
+Traceback (most recent call last):
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 281, in <module>
+    run([(rgb_model, 0, dataloaders, optimizer, lr_sched, args.comp_info)], criterion, num_epochs=int(args.epoch))
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 107, in run
+    _, _ = train_step(model, gpu, optimizer, dataloader['train'], epoch)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 176, in train_step
+    outputs, loss, probs, err = run_network(model, data, gpu, epoch, is_train=True)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 149, in run_network
+    outputs_final,out_hm, loss_destillation = model(inputs, inputs_flow, is_train)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/MSTCT_Model.py", line 30, in forward
+    inputs_flow, _ = self.cross_attn1(inputs, inputs_flow, inputs_flow)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/activation.py", line 1038, in forward
+    attn_output, attn_output_weights = F.multi_head_attention_forward(
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/functional.py", line 5226, in multi_head_attention_forward
+    assert embed_dim == embed_dim_to_check, \
+AssertionError: was expecting embedding dimension of 768, but got 2100

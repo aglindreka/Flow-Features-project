@@ -69,20 +69,47 @@ class Charades(data_utl.Dataset):
 
     def __init__(self, split_file, split, root, batch_size, classes, num_clips, skip):
         
-        self.data = make_dataset(split_file, split, root, classes)
+        self.data = make_dataset(split_file, split, root[0], classes)
         self.split=split
         self.split_file = split_file
         self.batch_size = batch_size
-        self.root = root
+        self.root_rgb = root[0]
+        self.root_flow = root[1]
+        self.root_depth = root[2]
+        self.root_pose = root[3]
+        self.root_SAM = root[4]
+        self.root_VLM = root[5]
+
         self.in_mem = {}
         self.num_clips = num_clips
         self.skip = skip
 
     def __getitem__(self, index):
         entry = self.data[index]
-        feat = np.load(os.path.join(self.root, entry[0] + '.npy'))
+        feat = np.load(os.path.join(self.root_rgb, entry[0] + '.npy'))
+        feat_flow = np.load(os.path.join(self.root_flow, entry[0] + '.npy'))
+        feat_depth = np.load(os.path.join(self.root_depth, entry[0] + '.npy'))
+        feat_pose = np.load(os.path.join(self.root_pose, entry[0] + '.npy'))
+        feat_SAM = np.load(os.path.join(self.root_SAM, entry[0] + '.npy'))
+        feat_VLM = np.load(os.path.join(self.root_VLM, entry[0] + '.npy'))
+
+        feat_pose = np.mean(feat_pose, axis=1)
+        feat_SAM = np.mean(feat_SAM, axis=1)
+        feat_VLM = np.mean(feat_VLM, axis=1)
+
         feat = feat.reshape((feat.shape[0], 1, 1, feat.shape[-1]))
+        feat_flow = feat_flow.reshape((feat_flow.shape[0], 1, 1, feat_flow.shape[-1]))
+        feat_depth = feat_depth.reshape((feat_depth.shape[0], 1, 1, feat_depth.shape[-1]))
+        feat_pose = feat_pose.reshape((feat_pose.shape[0], 1, 1, feat_pose.shape[-1]))
+        feat_SAM = feat_SAM.reshape((feat_SAM.shape[0], 1, 1, feat_SAM.shape[-1]))
+        feat_VLM = feat_VLM.reshape((feat_VLM.shape[0], 1, 1, feat_VLM.shape[-1]))
+
         features = feat.astype(np.float32)
+        features_flow = feat_flow.astype(np.float32)
+        features_depth = feat_depth.astype(np.float32)
+        features_pose = feat_pose.astype(np.float32)
+        features_SAM = feat_SAM.astype(np.float32)
+        features_VLM = feat_VLM.astype(np.float32)
 
         labels = entry[1]
 
@@ -98,11 +125,16 @@ class Charades(data_utl.Dataset):
                 else:
                     random_index = random.choice(range(0, len(features) - num_clips))
                 features = features[random_index: random_index + num_clips: 1]
+                features_flow = features_flow[random_index: random_index + num_clips: 1]
+                features_depth = features_depth[random_index: random_index + num_clips: 1]
+                features_pose = features_pose[random_index: random_index + num_clips: 1]
+                features_SAM = features_SAM[random_index: random_index + num_clips: 1]
+                features_VLM = features_VLM[random_index: random_index + num_clips: 1]
                 labels = labels[random_index: random_index + num_clips: 1]
                 hmap = hmap[random_index: random_index + num_clips: 1]
         # center_loc = np.transpose(center_loc, axes=[1, 0])
 
-        return features, labels, hmap, action_lengths, [entry[0], entry[2], num_action]
+        return features, labels, hmap, action_lengths, [entry[0], entry[2], num_action], features_flow, features_depth, features_pose, features_SAM, features_VLM
 
     def __len__(self):
         return len(self.data)
@@ -126,8 +158,18 @@ class collate_fn_unisize():
             m[:b[0].shape[0]] = 1
             l[:b[0].shape[0], :] = b[1]
             h[:b[0].shape[0], :] = b[2]
+            f_flow = np.zeros((max_len, b[5].shape[1], b[5].shape[2], b[5].shape[3]), np.float32)
+            f_flow[:b[5].shape[0]] = b[5]
+            f_depth = np.zeros((max_len, b[6].shape[1], b[6].shape[2], b[6].shape[3]), np.float32)
+            f_depth[:b[6].shape[0]] = b[6]
+            f_pose = np.zeros((max_len, b[7].shape[1], b[7].shape[2], b[7].shape[3]), np.float32)
+            f_pose[:b[7].shape[0]] = b[7]
+            f_SAM = np.zeros((max_len, b[8].shape[1], b[8].shape[2], b[8].shape[3]), np.float32)
+            f_SAM[:b[8].shape[0]] = b[8]
+            f_VLM = np.zeros((max_len, b[9].shape[1], b[9].shape[2], b[9].shape[3]), np.float32)
+            f_VLM[:b[9].shape[0]] = b[9]
 
-            new_batch.append([video_to_tensor(f), torch.from_numpy(m), torch.from_numpy(l), b[4], torch.from_numpy(h)])
+            new_batch.append([video_to_tensor(f), torch.from_numpy(m), torch.from_numpy(l), b[4], torch.from_numpy(h), video_to_tensor(f_flow), video_to_tensor(f_depth), video_to_tensor(f_pose), video_to_tensor(f_SAM), video_to_tensor(f_VLM)])
 
         return default_collate(new_batch)
 

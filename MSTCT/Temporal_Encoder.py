@@ -1,7 +1,41 @@
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 import math
 import torch.nn as nn
+import torch
+from torch.nn import functional as F
+import numpy as np
+import random
+import os
 
+SEED = 0
+torch.manual_seed(SEED)
+torch.cuda.manual_seed(SEED)
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+torch.cuda.manual_seed_all(SEED)
+random.seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+print('Random_SEED:', SEED)
+# torch.use_deterministic_algorithms(True)
+os.environ["PYTHONHASHSEED"] = str(SEED)
+os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+class GatingMechanism(nn.Module):
+    def __init__(self, output_dim, hidden_dim):
+        super(GatingMechanism, self).__init__()
+        self.fc1 = nn.Conv1d(output_dim*2, hidden_dim, kernel_size=1, stride=1, padding=0)
+        self.fc2 = nn.Conv1d(hidden_dim, 1, kernel_size=1, stride=1, padding=0)
+
+
+    def forward(self, output1, output2):
+        combined_outputs = torch.cat((output1, output2), dim=2)
+        combined_outputs = combined_outputs.permute(0, 2, 1)
+        hidden = F.relu(self.fc1(combined_outputs))
+        gate = torch.sigmoid(self.fc2(hidden))
+        gate = gate.permute(0, 2, 1)
+
+        #print('I am here: ', gate.shape)
+        return gate
 class Local_Relational_Block(nn.Module):
 
     def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
@@ -104,6 +138,10 @@ class GLRBlock(nn.Module):
         self.Local_Relational_Block = Local_Relational_Block(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop)
 
         self.apply(self._init_weights)
+        self.GatingMechanism_1 = GatingMechanism(256, 32)
+        self.GatingMechanism_2 = GatingMechanism(384, 32)
+        self.GatingMechanism_3 = GatingMechanism(576, 32)
+        self.GatingMechanism_4 = GatingMechanism(864, 32)
 
     def _init_weights(self, m):
         if isinstance(m, nn.Linear):
@@ -121,8 +159,23 @@ class GLRBlock(nn.Module):
                 m.bias.data.zero_()
 
     def forward(self, x):
-        x = x + self.Global_Relational_Block(self.norm1(x))
-        x = x + self.Local_Relational_Block(self.norm2(x))
+        if self.Global_Relational_Block(self.norm1(x)).shape[2] == 256:
+                beta = self.GatingMechanism_1(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+
+        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 384:
+                beta = self.GatingMechanism_2(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+
+        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 576:
+                beta = self.GatingMechanism_3(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+
+        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 864:
+                beta = self.GatingMechanism_4(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+
+
+        x = x + (beta * self.Global_Relational_Block(self.norm1(x)))
+        x = x + ((1-beta) * self.Local_Relational_Block(self.norm2(x)))
+        # x = x + self.Global_Relational_Block(self.norm1(x))
+        # x = x + self.Local_Relational_Block(self.norm2(x))
         return x
 
 

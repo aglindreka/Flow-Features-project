@@ -12,6 +12,8 @@ import random
 from utils import *
 from apmeter import APMeter
 import os
+import wandb
+import config
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-mode', type=str, help='rgb or flow (or joint for eval)')
@@ -62,12 +64,16 @@ if args.dataset == 'charades':
     else:
         from charades_dataloader import mt_collate_fn as collate_fn
 
-    train_split = './data/charades.json'
+    train_split = '/data/stars/user/areka/MS-TCT/data/mpiigi_ms_tct_15.json'
     test_split = train_split
-    rgb_root =  '/rgb_feat_rgb' 
-    flow_root = '/flow_feat_path/' # optional
-    # rgb_of=[rgb_root,flow_root]
-    classes = 157
+    rgb_root =  '/data/stars/user/areka/Features_diferent_models_MPIIGI/features_mpiigi_16'
+    flow_root = '/data/stars/user/areka/Features_modalities_mpiigi/Optical_Flow' # optional
+    depth_root = '/data/stars/user/areka/Features_modalities_mpiigi/Depth Feature'
+    pose_root = '/data/stars/user/areka/Features_modalities_mpiigi/pose_estimation'
+    SAM_root = '/data/stars/user/areka/Features_modalities_mpiigi/SAM'
+    VLM_root = '/data/stars/user/areka/Features_modalities_mpiigi/vificlip'
+    rgb_of=[rgb_root,flow_root, depth_root, pose_root, SAM_root, VLM_root]
+    classes = 15
 
 
 def load_data(train_split, val_split, root):
@@ -76,7 +82,7 @@ def load_data(train_split, val_split, root):
 
     if len(train_split) > 0:
         dataset = Dataset(train_split, 'training', root, batch_size, classes, int(args.num_clips), int(args.skip))
-        dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8,
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=0,
                                                  pin_memory=True, collate_fn=collate_fn)
         dataloader.root = root
     else:
@@ -85,7 +91,7 @@ def load_data(train_split, val_split, root):
         dataloader = None
 
     val_dataset = Dataset(val_split, 'testing', root, batch_size, classes, int(args.num_clips), int(args.skip))
-    val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=2,
+    val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=0,
                                                  pin_memory=True, collate_fn=collate_fn)
     val_dataloader.root = root
     dataloaders = {'train': dataloader, 'val': val_dataloader}
@@ -107,12 +113,17 @@ def run(models, criterion, num_epochs=50):
             sched.step(val_loss)
             # Time
             print("epoch", epoch, "Total_Time",time.time()-since, "Epoch_time",time.time()-since1)
+
+            wandb.log({
+                'val_map': val_map.numpy(),
+                'val_loss': val_loss
+            })
             
             if Best_val_map < val_map:
                 Best_val_map = val_map
                 print("epoch",epoch,"Best Val Map Update",Best_val_map)
-                pickle.dump(prob_val, open('./save_logit/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
-                print("logit_saved at:","./save_logit/" + str(epoch) + ".pkl")
+                pickle.dump(prob_val, open('./save_logit_depth_flow_pose_sam_vlm/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
+                print("logit_saved at:","./save_logit_depth_flow_pose_sam_vlm/" + str(epoch) + ".pkl")
 
 
 def eval_model(model, dataloader, baseline=False):
@@ -126,18 +137,30 @@ def eval_model(model, dataloader, baseline=False):
     return results
 
 
-def run_network(model, data, gpu, epoch=0, baseline=False):
+def run_network(model, data, gpu, epoch=0, baseline=False, is_train=True):
     # 
-    inputs, mask, labels, other, hm = data
+    inputs, mask, labels, other, hm, inputs_flow, inputs_depth, input_pose, input_SAM, input_VLM= data
     # wrap them in Variable 
     inputs = Variable(inputs.cuda(gpu))
     mask = Variable(mask.cuda(gpu))
     labels = Variable(labels.cuda(gpu))
     hm = Variable(hm.cuda(gpu))
 
-    inputs = inputs.squeeze(3).squeeze(3)
 
-    outputs_final,out_hm = model(inputs)
+    inputs_flow = Variable(inputs_flow.cuda(gpu))
+    inputs_depth = Variable(inputs_depth.cuda(gpu))
+    input_pose = Variable(input_pose.cuda(gpu))
+    input_SAM = Variable(input_SAM.cuda(gpu))
+    input_VLM = Variable(input_VLM.cuda(gpu))
+
+    inputs = inputs.squeeze(3).squeeze(3)
+    inputs_flow = inputs_flow.squeeze(3).squeeze(3)
+    inputs_depth = inputs_depth.squeeze(3).squeeze(3)
+    input_pose = input_pose.squeeze(3).squeeze(3)
+    input_SAM = input_SAM.squeeze(3).squeeze(3)
+    input_VLM = input_VLM.squeeze(3).squeeze(3)
+
+    outputs_final,out_hm, loss_destillation = model(inputs, inputs_flow, inputs_depth, input_pose, input_SAM, input_VLM, is_train)
 
     # Logit
     probs_f = F.sigmoid(outputs_final) * mask.unsqueeze(2)
@@ -151,7 +174,7 @@ def run_network(model, data, gpu, epoch=0, baseline=False):
     corr = torch.sum(mask)
     tot = torch.sum(mask)
 
-    return outputs_final, loss, probs_f, corr / tot
+    return outputs_final, (loss+loss_destillation), probs_f, corr / tot
 
 
 def train_step(model, gpu, optimizer, dataloader, epoch):
@@ -164,7 +187,7 @@ def train_step(model, gpu, optimizer, dataloader, epoch):
         optimizer.zero_grad()
         num_iter += 1
 
-        outputs, loss, probs, err = run_network(model, data, gpu, epoch)
+        outputs, loss, probs, err = run_network(model, data, gpu, epoch, is_train=True)
         apm.add(probs.data.cpu().numpy()[0], data[2].numpy()[0])
         error += err.data
         tot_loss += loss.data
@@ -195,7 +218,7 @@ def val_step(model, gpu, dataloader, epoch):
         num_iter += 1
         other = data[3]
 
-        outputs, loss, probs, err = run_network(model, data, gpu, epoch)
+        outputs, loss, probs, err = run_network(model, data, gpu, epoch, is_train = False)
         if sum(data[1].numpy()[0])>25:
             p1,l1=sampled_25(probs.data.cpu().numpy()[0],data[2].numpy()[0],data[1].numpy()[0])
             sampled_apm.add(p1,l1)
@@ -227,10 +250,12 @@ if __name__ == '__main__':
         dataloaders, datasets = load_data(train_split, test_split, flow_root)
     elif args.mode == 'rgb':
         print('RGB mode', rgb_root)
-        dataloaders, datasets = load_data(train_split, test_split, rgb_root)
+        dataloaders, datasets = load_data(train_split, test_split, rgb_of)
+    wandb.login(key=config.WANDB_KEY)
+    config_dict = dict()
 
-    if not os.path.exists('./save_logit'):
-        os.makedirs('./save_logit')
+    if not os.path.exists('./save_logit_depth_flow_pose_sam_vlm'):
+        os.makedirs('./save_logit_depth_flow_pose_sam_vlm')
 
     if args.train:
 
@@ -249,7 +274,7 @@ if __name__ == '__main__':
             # theta
             mlp_ratio = 8
             # D_0
-            in_feat_dim = 1024
+            in_feat_dim = 768
             # D_v
             final_embedding_dim = 512
             
@@ -261,5 +286,10 @@ if __name__ == '__main__':
         criterion = nn.NLLLoss(reduce=False)
         lr = float(args.lr)
         optimizer = optim.Adam(rgb_model.parameters(), lr=lr)
-        lr_sched = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=8, verbose=True)
+        lr_sched = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=10, verbose=True)
+
+        wandb.init(
+            project=config.PROJECT_NAME,
+            config=config_dict
+        )
         run([(rgb_model, 0, dataloaders, optimizer, lr_sched, args.comp_info)], criterion, num_epochs=int(args.epoch))

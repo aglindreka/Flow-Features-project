@@ -1,0 +1,70 @@
+{
+  "os":  "Linux-3.10.0-693.17.1.el7.x86_64-x86_64-with-glibc2.17",
+  "python":  "CPython 3.10.14",
+  "startedAt":  "2025-03-25T13:41:47.304682Z",
+  "args":  [
+    "-dataset",
+    "charades",
+    "-mode",
+    "rgb",
+    "-model",
+    "MS_TCT",
+    "-train",
+    "True",
+    "-num_clips",
+    "2100",
+    "-skip",
+    "0",
+    "-lr",
+    "0.0001",
+    "-comp_info",
+    "False",
+    "-epoch",
+    "50",
+    "-unisize",
+    "True",
+    "-alpha_l",
+    "1",
+    "-beta_l",
+    "0.05",
+    "-batch_size",
+    "1"
+  ],
+  "program":  "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py",
+  "codePath":  "train.py",
+  "git":  {
+    "remote":  "https://github.com/dairui01/MS-TCT.git",
+    "commit":  "7e5e8793177eadb036688353fce11d4d85fe5fa6"
+  },
+  "email":  "aglindreka@live.com",
+  "root":  "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT",
+  "host":  "nefgpu46",
+  "executable":  "/home/areka/miniconda3/envs/pdan_a/bin/python",
+  "codePathLocal":  "train.py",
+  "cpu_count":  16,
+  "cpu_count_logical":  32,
+  "gpu":  "Tesla V100-PCIE-32GB",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "29394636800",
+      "used":  "15432519680"
+    }
+  },
+  "memory":  {
+    "total":  "404280979456"
+  },
+  "cpu":  {
+    "count":  16,
+    "countLogical":  32
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "Tesla V100-PCIE-32GB",
+      "memoryTotal":  "34359738368",
+      "cudaCores":  5120,
+      "architecture":  "Volta"
+    }
+  ],
+  "cudaVersion":  "12.2"
+}

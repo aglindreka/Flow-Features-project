@@ -1,0 +1,26 @@
+Epoch 0/99
+----------
+/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/loss.py:96: UserWarning: Using a target size (torch.Size([1, 2100, 768])) that is different to the input size (torch.Size([1, 768, 2100])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.l1_loss(input, target, reduction=self.reduction)
+Traceback (most recent call last):
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 281, in <module>
+    run([(rgb_model, 0, dataloaders, optimizer, lr_sched, args.comp_info)], criterion, num_epochs=int(args.epoch))
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 107, in run
+    _, _ = train_step(model, gpu, optimizer, dataloader['train'], epoch)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 176, in train_step
+    outputs, loss, probs, err = run_network(model, data, gpu, epoch, is_train=True)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/train.py", line 149, in run_network
+    outputs_final,out_hm, loss_destillation = model(inputs, inputs_flow, is_train)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/stars/user/areka/MULTIMEDIA_CONFERANCE_2025/MS-TCT/MSTCT/MSTCT_Model.py", line 31, in forward
+    los_destillation = self.los_destillation(inputs, inputs_flow)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/modules/loss.py", line 96, in forward
+    return F.l1_loss(input, target, reduction=self.reduction)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/nn/functional.py", line 3230, in l1_loss
+    expanded_input, expanded_target = torch.broadcast_tensors(input, target)
+  File "/home/areka/miniconda3/envs/pdan_a/lib/python3.10/site-packages/torch/functional.py", line 75, in broadcast_tensors
+    return _VF.broadcast_tensors(tensors)  # type: ignore[attr-defined]
+RuntimeError: The size of tensor a (2100) must match the size of tensor b (768) at non-singleton dimension 2

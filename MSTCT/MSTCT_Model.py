@@ -2,7 +2,24 @@ import torch.nn as nn
 from .Classification_Module import Classification_Module
 from .TS_Mixer import Temporal_Mixer
 from .Temporal_Encoder import TemporalEncoder
+import torch
+import numpy as np
+import random
+import os
 
+SEED = 0
+torch.manual_seed(SEED)
+torch.cuda.manual_seed(SEED)
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+torch.cuda.manual_seed_all(SEED)
+random.seed(SEED)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+print('Random_SEED:', SEED)
+# torch.use_deterministic_algorithms(True)
+os.environ["PYTHONHASHSEED"] = str(SEED)
+os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 
 class MSTCT(nn.Module):
     """
@@ -25,18 +42,22 @@ class MSTCT(nn.Module):
         self.linear_pose = nn.Linear(256, 768)
         self.linear_SAM = nn.Linear(256, 768)
         self.linear_VLM = nn.Linear(512, 768)
+        self.cross_attn1 = nn.MultiheadAttention(768, 8, batch_first=True)
 
     def forward(self, inputs, inputs_flow, inputs_depth, input_pose, input_SAM, input_VLM, is_train):
         if is_train:
             inputs = self.dropout(inputs)
 
-            inputs_flow = self.linear_flow(inputs_flow.permute(0, 2, 1)).permute(0, 2, 1)
-            inputs_depth = self.linear_depth(inputs_depth.permute(0, 2, 1)).permute(0, 2, 1)
-            input_pose = self.linear_pose(input_pose.permute(0, 2, 1)).permute(0, 2, 1)
-            input_SAM = self.linear_SAM(input_SAM.permute(0, 2, 1)).permute(0, 2, 1)
-            input_VLM = self.linear_VLM(input_VLM.permute(0, 2, 1)).permute(0, 2, 1)
+            inputs_flow = self.linear_flow(inputs_flow.permute(0, 2, 1))#.permute(0, 2, 1)
+            inputs_depth = self.linear_depth(inputs_depth.permute(0, 2, 1))#.permute(0, 2, 1)
+            input_pose = self.linear_pose(input_pose.permute(0, 2, 1))#.permute(0, 2, 1)
+            input_SAM = self.linear_SAM(input_SAM.permute(0, 2, 1))#.permute(0, 2, 1)
+            input_VLM = self.linear_VLM(input_VLM.permute(0, 2, 1))#.permute(0, 2, 1)
+            all = torch.cat((inputs_flow, inputs_depth, input_pose, input_SAM, input_VLM), dim=1)
 
-            los_destillation = self.los_destillation(inputs, inputs_flow) + self.los_destillation(inputs, inputs_depth)+ self.los_destillation(inputs, input_pose)+ self.los_destillation(inputs, input_SAM) + self.los_destillation(inputs, input_VLM)
+            all, _  = self.cross_attn1(inputs.permute(0, 2, 1), all, all)
+
+            los_destillation = self.los_destillation(inputs, all.permute(0, 2, 1))# + self.los_destillation(inputs, inputs_depth)+ self.los_destillation(inputs, input_pose)+ self.los_destillation(inputs, input_SAM) + self.los_destillation(inputs, input_VLM)
 
             # Temporal Encoder Module
             x = self.TemporalEncoder(inputs)

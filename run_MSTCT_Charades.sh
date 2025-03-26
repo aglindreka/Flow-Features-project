@@ -8,7 +8,7 @@ python train.py \
 -train True \
 -num_clips 2100 \
 -skip 0 \
--lr 0.0001 \
+-lr 0.001 \
 -comp_info False \
 -epoch 100 \
 -unisize True \

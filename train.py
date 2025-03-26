@@ -122,8 +122,8 @@ def run(models, criterion, num_epochs=50):
             if Best_val_map < val_map:
                 Best_val_map = val_map
                 print("epoch",epoch,"Best Val Map Update",Best_val_map)
-                pickle.dump(prob_val, open('./save_logit_depth_flow_pose_sam_vlm/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
-                print("logit_saved at:","./save_logit_depth_flow_pose_sam_vlm/" + str(epoch) + ".pkl")
+                pickle.dump(prob_val, open('./save_logit_all_0001/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
+                print("logit_saved at:","./save_logit_all_0001/" + str(epoch) + ".pkl")
 
 
 def eval_model(model, dataloader, baseline=False):
@@ -254,8 +254,8 @@ if __name__ == '__main__':
     wandb.login(key=config.WANDB_KEY)
     config_dict = dict()
 
-    if not os.path.exists('./save_logit_depth_flow_pose_sam_vlm'):
-        os.makedirs('./save_logit_depth_flow_pose_sam_vlm')
+    if not os.path.exists('./save_logit_all_0001'):
+        os.makedirs('./save_logit_all_0001')
 
     if args.train:
 
@@ -285,8 +285,8 @@ if __name__ == '__main__':
 
         criterion = nn.NLLLoss(reduce=False)
         lr = float(args.lr)
-        optimizer = optim.Adam(rgb_model.parameters(), lr=lr)
-        lr_sched = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=10, verbose=True)
+        optimizer = optim.AdamW(rgb_model.parameters(), lr=lr)
+        lr_sched = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=8, verbose=True)
 
         wandb.init(
             project=config.PROJECT_NAME,

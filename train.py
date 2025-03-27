@@ -122,8 +122,8 @@ def run(models, criterion, num_epochs=50):
             if Best_val_map < val_map:
                 Best_val_map = val_map
                 print("epoch",epoch,"Best Val Map Update",Best_val_map)
-                pickle.dump(prob_val, open('./save_logit_all_0001/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
-                print("logit_saved at:","./save_logit_all_0001/" + str(epoch) + ".pkl")
+                pickle.dump(prob_val, open('./save_logit_all_expert_beta1/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
+                print("logit_saved at:","./save_logit_all_expert_beta1/" + str(epoch) + ".pkl")
 
 
 def eval_model(model, dataloader, baseline=False):
@@ -254,8 +254,8 @@ if __name__ == '__main__':
     wandb.login(key=config.WANDB_KEY)
     config_dict = dict()
 
-    if not os.path.exists('./save_logit_all_0001'):
-        os.makedirs('./save_logit_all_0001')
+    if not os.path.exists('./save_logit_all_expert_beta1'):
+        os.makedirs('./save_logit_all_expert_beta1')
 
     if args.train:
 

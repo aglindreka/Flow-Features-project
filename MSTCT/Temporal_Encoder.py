@@ -7,19 +7,19 @@ import numpy as np
 import random
 import os
 
-SEED = 0
-torch.manual_seed(SEED)
-torch.cuda.manual_seed(SEED)
-torch.manual_seed(SEED)
-np.random.seed(SEED)
-torch.cuda.manual_seed_all(SEED)
-random.seed(SEED)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
-print('Random_SEED:', SEED)
-# torch.use_deterministic_algorithms(True)
-os.environ["PYTHONHASHSEED"] = str(SEED)
-os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+# SEED = 0
+# torch.manual_seed(SEED)
+# torch.cuda.manual_seed(SEED)
+# torch.manual_seed(SEED)
+# np.random.seed(SEED)
+# torch.cuda.manual_seed_all(SEED)
+# random.seed(SEED)
+# torch.backends.cudnn.deterministic = True
+# torch.backends.cudnn.benchmark = False
+# print('Random_SEED:', SEED)
+# # torch.use_deterministic_algorithms(True)
+# os.environ["PYTHONHASHSEED"] = str(SEED)
+# os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 class GatingMechanism(nn.Module):
     def __init__(self, output_dim, hidden_dim):
         super(GatingMechanism, self).__init__()
@@ -159,23 +159,23 @@ class GLRBlock(nn.Module):
                 m.bias.data.zero_()
 
     def forward(self, x):
-        if self.Global_Relational_Block(self.norm1(x)).shape[2] == 256:
-                beta = self.GatingMechanism_1(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
-
-        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 384:
-                beta = self.GatingMechanism_2(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
-
-        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 576:
-                beta = self.GatingMechanism_3(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
-
-        elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 864:
-                beta = self.GatingMechanism_4(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
-
-
-        x = x + (beta * self.Global_Relational_Block(self.norm1(x)))
-        x = x + ((1-beta) * self.Local_Relational_Block(self.norm2(x)))
-        # x = x + self.Global_Relational_Block(self.norm1(x))
-        # x = x + self.Local_Relational_Block(self.norm2(x))
+        # if self.Global_Relational_Block(self.norm1(x)).shape[2] == 256:
+        #         beta = self.GatingMechanism_1(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+        #
+        # elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 384:
+        #         beta = self.GatingMechanism_2(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+        #
+        # elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 576:
+        #         beta = self.GatingMechanism_3(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+        #
+        # elif self.Global_Relational_Block(self.norm1(x)).shape[2] == 864:
+        #         beta = self.GatingMechanism_4(self.Global_Relational_Block(self.norm1(x)), self.Local_Relational_Block(self.norm2(x)))
+        #
+        #
+        # x = x + (beta * self.Global_Relational_Block(self.norm1(x)))
+        # x = x + ((1-beta) * self.Local_Relational_Block(self.norm2(x)))
+        x = x + self.Global_Relational_Block(self.norm1(x))
+        x = x + self.Local_Relational_Block(self.norm2(x))
         return x
 
 

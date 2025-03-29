@@ -14,6 +14,7 @@ def make_dataset(split_file, split, root, num_classes=157):
     tau = 4
     ku = 1
     dataset = []
+    list = []
     with open(split_file, 'r') as f:
         data = json.load(f)
     print('split!!!!', split)
@@ -29,6 +30,8 @@ def make_dataset(split_file, split, root, num_classes=157):
             continue
 
         fts = np.load(os.path.join(root, vid + '.npy'))
+        list.append(fts.shape[0])
+
         num_feat = fts.shape[0]
         label = np.zeros((num_feat, num_classes), np.float32)
         #
@@ -62,6 +65,7 @@ def make_dataset(split_file, split, root, num_classes=157):
         dataset.append((vid, label, data[vid]['duration'], [hmap, num_action, np.asarray(center_loc), np.asarray(action_lengths)]))
         i += 1
 
+
     return dataset
 
 
@@ -87,11 +91,18 @@ class Charades(data_utl.Dataset):
     def __getitem__(self, index):
         entry = self.data[index]
         feat = np.load(os.path.join(self.root_rgb, entry[0] + '.npy'))
+        # print('rgb: ', feat.shape, entry[0])
         feat_flow = np.load(os.path.join(self.root_flow, entry[0] + '.npy'))
+        # print('flow: ',feat_flow.shape)
         feat_depth = np.load(os.path.join(self.root_depth, entry[0] + '.npy'))
+        # print('depth: ',feat_depth.shape)
         feat_pose = np.load(os.path.join(self.root_pose, entry[0] + '.npy'))
+        # print('pose: ',feat_pose.shape)
         feat_SAM = np.load(os.path.join(self.root_SAM, entry[0] + '.npy'))
+        # print('sam: ',feat_SAM.shape)
         feat_VLM = np.load(os.path.join(self.root_VLM, entry[0] + '.npy'))
+        # print('vlm: ',feat_VLM.shape)
+
 
         feat_pose = np.mean(feat_pose, axis=1)
         feat_SAM = np.mean(feat_SAM, axis=1)

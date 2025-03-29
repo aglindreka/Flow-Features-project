@@ -64,16 +64,25 @@ if args.dataset == 'charades':
     else:
         from charades_dataloader import mt_collate_fn as collate_fn
 
-    train_split = '/data/stars/user/areka/MS-TCT/data/mpiigi_ms_tct_15.json'
+    # train_split = '/data/stars/user/areka/MS-TCT/data/mpiigi_ms_tct_15.json'
+    # test_split = train_split
+    # rgb_root =  '/data/stars/user/areka/Features_diferent_models_MPIIGI/features_mpiigi_16'
+    # flow_root = '/data/stars/user/areka/Features_modalities_mpiigi/Optical_Flow' # optional
+    # depth_root = '/data/stars/user/areka/Features_modalities_mpiigi/Depth Feature'
+    # pose_root = '/data/stars/user/areka/Features_modalities_mpiigi/pose_estimation'
+    # SAM_root = '/data/stars/user/areka/Features_modalities_mpiigi/SAM'
+    # VLM_root = '/data/stars/user/areka/Features_modalities_mpiigi/vificlip'
+
+    train_split = '/data/stars/user/areka/MMA_52_MS/mma_52_pdan.json'
     test_split = train_split
-    rgb_root =  '/data/stars/user/areka/Features_diferent_models_MPIIGI/features_mpiigi_16'
-    flow_root = '/data/stars/user/areka/Features_modalities_mpiigi/Optical_Flow' # optional
-    depth_root = '/data/stars/user/areka/Features_modalities_mpiigi/Depth Feature'
-    pose_root = '/data/stars/user/areka/Features_modalities_mpiigi/pose_estimation'
-    SAM_root = '/data/stars/user/areka/Features_modalities_mpiigi/SAM'
-    VLM_root = '/data/stars/user/areka/Features_modalities_mpiigi/vificlip'
+    rgb_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/rgb'
+    flow_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/optical_flow'  # optional
+    depth_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/depth'
+    pose_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/Pose'
+    SAM_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/SAM'
+    VLM_root = '/data/stars/user/areka/MMA_52_MS/modalities_features_/VifiCLIP'
     rgb_of=[rgb_root,flow_root, depth_root, pose_root, SAM_root, VLM_root]
-    classes = 15
+    classes = 52
 
 
 def load_data(train_split, val_split, root):
@@ -82,7 +91,8 @@ def load_data(train_split, val_split, root):
 
     if len(train_split) > 0:
         dataset = Dataset(train_split, 'training', root, batch_size, classes, int(args.num_clips), int(args.skip))
-        dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=0,
+        print(len(dataset))
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8,
                                                  pin_memory=True, collate_fn=collate_fn)
         dataloader.root = root
     else:
@@ -91,7 +101,8 @@ def load_data(train_split, val_split, root):
         dataloader = None
 
     val_dataset = Dataset(val_split, 'testing', root, batch_size, classes, int(args.num_clips), int(args.skip))
-    val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=0,
+    print(len(val_dataset))
+    val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=True, num_workers=2,
                                                  pin_memory=True, collate_fn=collate_fn)
     val_dataloader.root = root
     dataloaders = {'train': dataloader, 'val': val_dataloader}
@@ -122,8 +133,8 @@ def run(models, criterion, num_epochs=50):
             if Best_val_map < val_map:
                 Best_val_map = val_map
                 print("epoch",epoch,"Best Val Map Update",Best_val_map)
-                pickle.dump(prob_val, open('./save_logit_all_expert_beta1/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
-                print("logit_saved at:","./save_logit_all_expert_beta1/" + str(epoch) + ".pkl")
+                pickle.dump(prob_val, open('./diana/' + str(epoch) + '.pkl', 'wb'), pickle.HIGHEST_PROTOCOL)
+                print("logit_saved at:","./diana/" + str(epoch) + ".pkl")
 
 
 def eval_model(model, dataloader, baseline=False):
@@ -173,6 +184,8 @@ def run_network(model, data, gpu, epoch=0, baseline=False, is_train=True):
 
     corr = torch.sum(mask)
     tot = torch.sum(mask)
+    # print('loss: ', loss, 'loss_dest: ', loss_destillation)
+
 
     return outputs_final, (loss+loss_destillation), probs_f, corr / tot
 
@@ -234,11 +247,11 @@ def val_step(model, gpu, dataloader, epoch):
 
     epoch_loss = tot_loss / num_iter
     val_map = torch.sum(100 * apm.value()) / torch.nonzero(100 * apm.value()).size()[0]
-    sample_val_map = torch.sum(100 * sampled_apm.value()) / torch.nonzero(100 * sampled_apm.value()).size()[0]
+    # sample_val_map = torch.sum(100 * sampled_apm.value()) / torch.nonzero(100 * sampled_apm.value()).size()[0]
 
     print('epoch',epoch,'Full-val-map:', val_map)
-    print('epoch',epoch,'sampled-val-map:', sample_val_map)
-    print(100 * sampled_apm.value())
+    # print('epoch',epoch,'sampled-val-map:', sample_val_map)
+    # print(100 * sampled_apm.value())
     apm.reset()
     sampled_apm.reset()
     return full_probs, epoch_loss, val_map
@@ -254,8 +267,8 @@ if __name__ == '__main__':
     wandb.login(key=config.WANDB_KEY)
     config_dict = dict()
 
-    if not os.path.exists('./save_logit_all_expert_beta1'):
-        os.makedirs('./save_logit_all_expert_beta1')
+    if not os.path.exists('./diana'):
+        os.makedirs('./diana')
 
     if args.train:
 
